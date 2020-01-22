@@ -50,3 +50,5 @@ with open('./data/M1.json') as f:
     np.save('t_control', time)
     np.save('v_control', voltajes)
 
+    posiciones = np.array([[cell['tags']['xnorm'], cell['tags']['ynorm']] 
+                            for cell in data['net']['cells']])
