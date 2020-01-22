@@ -3,15 +3,17 @@
 NAME = 'M1_runAll' 
 PROJECT = 'lascon'
 PYTHON_VERSION = '3.6'
+
+
 """
  ------RUN M1 SIMULATION MODULES----
 
 """
 
 
-import prms_dysp1 as prms  # import parameters file
 from netpyne import sim  # import netpyne init module
-
+import os, re
+import importlib
 
 ## Set working directory  
 """
@@ -20,6 +22,9 @@ The code below will traverse the path upwards until it finds the root folder of 
 
 workdir = re.sub("(?<={})[\w\W]*".format(PROJECT), "", os.getcwd())
 os.chdir(workdir)
+import sys
+sys.path.insert(0, './')
+import prms_dysp1 as prms  # import parameters file
 
 
 ## Set  up pipeline folder if missing  
@@ -44,10 +49,11 @@ sim.createSimulateAnalyze(netParams = prms.netParams, simConfig = prms.simConfig
 """
 ---- VECTOR VALUES SIMULATED DATA-------
  """
+ 
 import numpy as np
 import matplotlib.pyplot as plt
-datos = np.load('v_dysp.npy')
-data_T = np.load('t_dysp.npy')
+datos = np.load('./pipeline/'+NAME+'/store/vdysp.npy')
+data_T = np.load(os.path.join(pipeline, 'store', 't_dysp.npy'))
 
 
 
@@ -66,7 +72,7 @@ plt.plot(datos.T)
 series = [] 
  
 for ini in range(0,datos.shape[0]): 
-    series.append(data[ini,:]) 
+    series.append(datos[ini,:]) 
  
 series = np.array(series) 
 series = pd.DataFrame(series) 
