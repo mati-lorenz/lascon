@@ -22,11 +22,11 @@ os.chdir(workdir)
 The code below will automatically create a pipeline folder for this code file if it does not exist.
 """
 
-pipeline = os.path.join('2_pipeline', NAME)
+pipeline = os.path.join('pipeline', NAME)
     
 if not os.path.exists(pipeline):
     os.makedirs(pipeline)
-    for folder in ['out', 'store', 'tmp']:
+    for folder in ['out', 'store']:
         os.makedirs(os.path.join(pipeline, folder))
 
 sim.createSimulateAnalyze(netParams = prms.netParams, simConfig = prms.simConfig)  # create and simulate network
