@@ -17,28 +17,28 @@ PYTHON_VERSION = '3.6'
 
 
 from netpyne import specs
-import os, re
-
-## Set working directory  
-"""
-The code below will traverse the path upwards until it finds the root folder of the project.
-"""
-
-workdir = re.sub("(?<={})[\w\W]*".format(PROJECT), "", os.getcwd())
-os.chdir(workdir)
-
-
-## Set  up pipeline folder if missing  
-"""
-The code below will automatically create a pipeline folder for this code file if it does not exist.
-"""
-
-pipeline = os.path.join('2_pipeline', NAME)
-    
-if not os.path.exists(pipeline):
-    os.makedirs(pipeline)
-    for folder in ['out', 'store', 'tmp']:
-        os.makedirs(os.path.join(pipeline, folder))
+#import os, re
+#
+### Set working directory  
+#"""
+#The code below will traverse the path upwards until it finds the root folder of the project.
+#"""
+#
+#workdir = re.sub("(?<={})[\w\W]*".format(PROJECT), "", os.getcwd())
+#os.chdir(workdir)
+#
+#
+### Set  up pipeline folder if missing  
+#"""
+#The code below will automatically create a pipeline folder for this code file if it does not exist.
+#"""
+#
+#pipeline = os.path.join('2_pipeline', NAME)
+#    
+#if not os.path.exists(pipeline):
+#    os.makedirs(pipeline)
+#    for folder in ['out', 'store', 'tmp']:
+#        os.makedirs(os.path.join(pipeline, folder))
 
 netParams = specs.NetParams()   # object of class NetParams to store the network parameters
 simConfig = specs.SimConfig()   # object of class SimConfig to store the simulation configuration
@@ -63,7 +63,7 @@ simConfig.verbose = 0 # Whether to write diagnostic information on events
 simConfig.oneSynPerNetcon = False
 
 # Recording 
-simConfig.recordCells = []  # list of cells to record from 
+simConfig.recordCells = ['all']  # list of cells to record from 
 simConfig.recordTraces = {'V':{'sec':'soma','loc':0.5,'var':'v'}} # 'V':{'sec':'soma','loc':0.5,'var':'v'}}
     #'V':{'sec':'soma','loc':0.5,'var':'v'}, 
     #'u':{'sec':'soma', 'pointp':'Izhi2007b_0', 'var':'u'}, 
@@ -75,7 +75,7 @@ simConfig.recordStim = False  # record spikes of cell stims
 simConfig.recordStep = 0.1 # Step size in ms to save data (eg. V traces, LFP, etc)
 
 # Saving
-simConfig.filename = os.path.join(pipeline, 'out', 'cntrldata') #'./data/M1_ynorm_izhi'  # Set file output name
+simConfig.filename = './data/cntrldata' #'./data/M1_ynorm_izhi'  # Set file output name
 simConfig.saveFileStep = 1000 # step size in ms to save data to disk
 simConfig.savePickle = False # save to pickle file
 simConfig.saveJson = True # save to json file
@@ -86,10 +86,12 @@ simConfig.saveHDF5 = False# save to HDF5 file
 
 
 # Analysis and plotting 
-simConfig.addAnalysis('plotRaster', True) # Whether or not to plot a raster
-simConfig.addAnalysis('plotTraces', {'include': [('IT_L23',0), ('PT_L5B',1), ('PV_L23',2), ('SOM_L5',3)]}) # plot recorded traces for this list of cells
-simConfig.addAnalysis('plot2Dnet', {'showConns': False})
+#simConfig.addAnalysis('plotRaster', True) # Whether or not to plot a raster
+#simConfig.addAnalysis('plotTraces', {'include': [('IT_L23',0), ('PT_L5B',1), ('PV_L23',2), ('SOM_L5',3)]}) # plot recorded traces for this list of cells
+#simConfig.addAnalysis('plot2Dnet', {'showConns': False})
 
+#simConfig.addAnalysis('granger', {'cells1' : ['PT_L5B'], 'cells2' : ['PV_L5'], 'label1' : 'PT_L5B', 'label2' : 'PV_L5'})
+#simConfig.addAnalysis('granger', {'cells1' : ['PV_L23'], 'cells2' : ['CT_L6'], 'label1' : 'PV_L23', 'label2' : 'CT_L6'})
 ###############################################################################
 # NETWORK PARAMETERS
 ###############################################################################
